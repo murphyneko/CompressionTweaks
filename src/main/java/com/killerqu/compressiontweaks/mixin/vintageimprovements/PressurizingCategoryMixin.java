@@ -13,6 +13,11 @@ import java.util.List;
 
 @Mixin(PressurizingCategory.class)
 public class PressurizingCategoryMixin {
+        /*
+
+    DISABLED FOR NOW:
+    REASON: Seems like the new version does not have that quirk, leaving this here anyway.
+
     @Redirect(method = "setRecipe(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Lcom/simibubi/create/content/processing/basin/BasinRecipe;Lmezz/jei/api/recipe/IFocusGroup;)V",
             at = @At(value = "INVOKE", target = "Lcom/negodya1/vintageimprovements/compat/jei/category/PressurizingCategory;withImprovedVisibility(Lnet/minecraftforge/fluids/FluidStack;)Lnet/minecraftforge/fluids/FluidStack;"), remap = false)
     private FluidStack resetFluidAmount(FluidStack fluidStack){
@@ -24,4 +29,6 @@ public class PressurizingCategoryMixin {
     private List<FluidStack> resetFluidAmount(List<FluidStack> list){
         return list;
     }
+
+         */
 }

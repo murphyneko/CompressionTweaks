@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -16,13 +17,12 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.quark.base.module.config.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
         for(int i = 0;i<recipe.getOres().size();i++) {
             ItemStack item = recipe.getOres().get(i);
             builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, 24).addItemStack(item.getItem().getDefaultInstance())
-                    .addTooltipCallback((recipeSlotView, tooltip) -> {
+                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
                         if(item.getCount() > 1) tooltip.add(Component.translatable("compressiontweaks.jei.bouldercategory_expectedyield", item.getCount()));
                     });
             xOffset += 18;
@@ -79,7 +79,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
             int index = i;
             ItemStack item = recipe.getConglomerates().get(i);
             builder.addSlot(RecipeIngredientRole.INPUT, xOffset, 57).addItemStack(item.getItem().getDefaultInstance())
-                    .addTooltipCallback((recipeSlotView, tooltip) -> {
+                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
                         if(item.getCount() > 1) tooltip.add(Component.translatable("compressiontweaks.jei.bouldercategory_expectedyield", item.getCount()));
                         tooltip.add(getConglomerateTooltip(index));
                     });
@@ -89,7 +89,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
         for(int i = 0;i<recipe.getPrimaries().size();i++) {
             ItemStack item = recipe.getPrimaries().get(i);
             builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, 90).addItemStack(item.getItem().getDefaultInstance())
-                    .addTooltipCallback((recipeSlotView, tooltip) -> {
+                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
                         if(item.getCount() > 1) tooltip.add(Component.translatable("compressiontweaks.jei.bouldercategory_expectedyield", item.getCount()));
                     });
             xOffset += 18;
@@ -99,7 +99,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
         for(int i = 0;i<recipe.getSecondaries().size();i++) {
             ItemStack item = recipe.getSecondaries().get(i);
             builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, 123).addItemStack(item.getItem().getDefaultInstance())
-                    .addTooltipCallback((recipeSlotView, tooltip) -> {
+                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
                         if(item.getCount() > 1) tooltip.add(Component.translatable("compressiontweaks.jei.bouldercategory_expectedyield", item.getCount()));
                     });
             xOffset += 18;
@@ -107,7 +107,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
         for(int i = 0;i<recipe.getFluids().size();i++) {
             FluidStack fluid = recipe.getFluids().get(i);
             builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, 123).addFluidStack(fluid.getFluid(), fluid.getAmount())
-                    .addTooltipCallback((recipeSlotView, tooltip) -> {
+                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
                         tooltip.add(Component.translatable("compressiontweaks.jei.bouldercategory_expectedyield", fluid.getAmount()+"mb"));
                     });
             xOffset += 18;
@@ -116,49 +116,49 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
     }
 
     @Override
-    public void draw(BoulderInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack ms, double mouseX, double mouseY) {
+    public void draw(BoulderInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         Font font = Minecraft.getInstance().font;
         Component boulderName = Component.translatable("compressiontweaks.jei.boulders."+recipe.getId().getPath());
         float textPos = ((float) background.getWidth()/2) - ((float) font.width(boulderName.getString())/2);
-        font.draw(ms, boulderName, textPos, 1, 0x888888);
-        GuiComponent.fill(ms, 10, 10, 170,11, 0xFF666666);
+        gui.drawString(font, boulderName.getVisualOrderText(), textPos, 1, 0x888888, false);
+        gui.fill(10, 10, 170,11, 0xFF666666);
         textPos = ((float) background.getWidth()/2) - ((float) font.width(TEXT_ORES.getString())/2);
-        font.draw(ms, TEXT_ORES, textPos, 13, 0x888888);
-        GuiComponent.fill(ms, 10, 43, 170,44, 0xFF666666);
+        gui.drawString(font, TEXT_ORES.getVisualOrderText(), textPos, 13, 0x888888, false);
+        gui.fill(10, 43, 170,44, 0xFF666666);
         textPos = ((float) background.getWidth()/2) - ((float) font.width(TEXT_CONGLOMERATES.getString())/2);
-        font.draw(ms, TEXT_CONGLOMERATES, textPos, 46, 0x888888);
-        GuiComponent.fill(ms, 10, 76, 170,77, 0xFF666666);
+        gui.drawString(font, TEXT_CONGLOMERATES.getVisualOrderText(), textPos, 46, 0x888888, false);
+        gui.fill(10, 76, 170,77, 0xFF666666);
         textPos = ((float) background.getWidth()/2) - ((float) font.width(TEXT_PRIMARIES.getString())/2);
-        font.draw(ms, TEXT_PRIMARIES, textPos, 79, 0x888888);
-        GuiComponent.fill(ms, 10, 109, 170,110, 0xFF666666);
+        gui.drawString(font, TEXT_PRIMARIES.getVisualOrderText(), textPos, 79, 0x888888, false);
+        gui.fill(10, 109, 170,110, 0xFF666666);
         textPos = ((float) background.getWidth()/2) - ((float) font.width(TEXT_SECONDARIES.getString())/2);
-        font.draw(ms, TEXT_SECONDARIES, textPos, 112, 0x888888);
+        gui.drawString(font, TEXT_SECONDARIES.getVisualOrderText(), textPos, 112, 0x888888, false);
 
 
         int xOffset = background.getWidth()/2 - (9*recipe.getOres().size());
         for(int i = 0;i<recipe.getOres().size();i++) {
-            slot.draw(ms, xOffset, 23);
+            slot.draw(gui, xOffset, 23);
             xOffset += 18;
         }
         xOffset = background.getWidth()/2 - (9*recipe.getConglomerates().size());
         for(int i = 0;i<recipe.getConglomerates().size();i++) {
-            slot.draw(ms, xOffset, 56);
+            slot.draw(gui, xOffset, 56);
             xOffset += 18;
         }
         xOffset = background.getWidth()/2 - (9*recipe.getPrimaries().size());
         for(int i = 0;i<recipe.getPrimaries().size();i++) {
-            slot.draw(ms, xOffset, 89);
+            slot.draw(gui, xOffset, 89);
             xOffset += 18;
         }
 
         xOffset = background.getWidth()/2 - (9*(recipe.getSecondaries().size() + recipe.getFluids().size()));
         for(int i = 0;i<recipe.getSecondaries().size();i++) {
-            slot.draw(ms, xOffset, 122);
+            slot.draw(gui, xOffset, 122);
             xOffset += 18;
         }
         for(int i = 0;i<recipe.getFluids().size();i++) {
-            slot.draw(ms, xOffset, 122);
+            slot.draw(gui, xOffset, 122);
             xOffset += 18;
         }
 
@@ -167,7 +167,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(BoulderInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY){
+    public void getTooltip(ITooltipBuilder builder, BoulderInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY){
         List<Component> tooltips = new ArrayList<>();
         Font font = Minecraft.getInstance().font;
         float textPos = ((float) background.getWidth()/2) - ((float) font.width(TEXT_ORES.getString())/2);
@@ -187,7 +187,7 @@ public class BoulderInfoCategory implements IRecipeCategory<BoulderInfoRecipe> {
             tooltips.add(Component.translatable("compressiontweaks.jei.bouldercategory.info.secondaries"));
         }
 
-        return tooltips;
+        builder.addAll(tooltips);
     }
 
 

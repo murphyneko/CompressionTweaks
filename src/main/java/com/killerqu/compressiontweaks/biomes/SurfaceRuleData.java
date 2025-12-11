@@ -15,13 +15,13 @@ public class SurfaceRuleData {
 
     public static SurfaceRules.RuleSource makeRules() {
         return SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.VOID_BIOME), AIR),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.VOID_BIOME), AIR),
                 SurfaceRules.ifTrue(SurfaceRules.verticalGradient("compressiontweaks:bedrock_floor", new VerticalAnchor.AboveBottom(0), new VerticalAnchor.AboveBottom(5)), BEDROCK),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.VALLEY_BIOME), SOULSOIL),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.CRIMSON_BIOME), NETHERRACK),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.WARPED_BIOME), NETHERRACK),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.DELTAS_BIOME), BASALT),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.END_BIOME), ENDSTONE)
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.VALLEY_BIOME), SOULSOIL),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.CRIMSON_BIOME), NETHERRACK),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.WARPED_BIOME), NETHERRACK),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.DELTAS_BIOME), BASALT),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.END_BIOME), ENDSTONE)
         );
     }
 

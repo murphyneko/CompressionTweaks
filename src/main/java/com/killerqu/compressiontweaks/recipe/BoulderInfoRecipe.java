@@ -2,6 +2,7 @@ package com.killerqu.compressiontweaks.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -182,7 +183,7 @@ public class BoulderInfoRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container p_44001_) {
+    public ItemStack assemble(Container p_44001_, RegistryAccess reg) {
         return null;
     }
 
@@ -192,7 +193,7 @@ public class BoulderInfoRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess reg) {
         return ItemStack.EMPTY;
     }
 

@@ -3,6 +3,7 @@ package com.killerqu.compressiontweaks;
 import com.killerqu.compressiontweaks.biomes.CTBiomes;
 import com.killerqu.compressiontweaks.biomes.CTRegion;
 import com.killerqu.compressiontweaks.biomes.SurfaceRuleData;
+import com.killerqu.compressiontweaks.config.CTClientConfig;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import com.killerqu.compressiontweaks.recipe.CTRecipeTypes;
 import com.mojang.logging.LogUtils;
@@ -52,6 +53,7 @@ public class CompressionTweaks {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(EventHandler.class);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CTCommonConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CTClientConfig.SPEC);
     }
 
     private void dataSetup(final GatherDataEvent event){

@@ -1,4 +1,4 @@
-package com.killerqu.compressiontweaks.mixin;
+package com.killerqu.compressiontweaks.mixin.emi;
 
 import dev.emi.emi.EmiUtil;
 import dev.emi.emi.VanillaPlugin;

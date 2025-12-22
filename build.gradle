@@ -193,6 +193,7 @@ dependencies {
     implementation(fg.deobf("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}"))
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("curse.maven:applied-energistics-2-223794:7148487")
+    //implementation fg.deobf("curse.maven:spelunkery-790530:6122072")
     compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
     runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
     //This is because i do not know how to make emi-specific plugins.

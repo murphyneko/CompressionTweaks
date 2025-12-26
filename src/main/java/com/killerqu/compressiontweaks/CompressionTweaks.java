@@ -2,7 +2,7 @@ package com.killerqu.compressiontweaks;
 
 import com.killerqu.compressiontweaks.biomes.CTBiomes;
 import com.killerqu.compressiontweaks.biomes.CTRegion;
-import com.killerqu.compressiontweaks.biomes.SurfaceRuleData;
+import com.killerqu.compressiontweaks.biomes.CTSurfaceRuleData;
 import com.killerqu.compressiontweaks.config.CTClientConfig;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import com.killerqu.compressiontweaks.recipe.CTRecipeTypes;
@@ -66,7 +66,7 @@ public class CompressionTweaks {
         event.enqueueWork(() ->
         {
             Regions.register(new CTRegion(10));
-            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, SurfaceRuleData.makeRules());
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, CTSurfaceRuleData.makeRules());
         });
     }
 

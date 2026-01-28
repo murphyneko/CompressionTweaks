@@ -13,7 +13,8 @@
     "emi.EMIRecipeBlacklistMixin",
     "vintageimprovements.CompressorCapacityMixin",
     "vintageimprovements.PressurizingCategoryMixin",
-    "vintageimprovements.VacuumizingCategoryMixin"
+    "vintageimprovements.VacuumizingCategoryMixin",
+    "vintageimprovements.VibratingTableCapacityMixin"
   ],
   "client": [
     "bottled_cloud.JEIConversionCategoryMixin",

@@ -3,6 +3,7 @@ package com.killerqu.compressiontweaks.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.killerqu.compressiontweaks.CompressionTweaks;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -44,9 +45,9 @@ public class LeftoversOverrideRecipe implements Recipe<Inventory> {
     @Override public RecipeType<?> getType() { return CTRecipeTypes.LEFTOVERS_OVERRIDE.get(); }
 
     @Override public boolean matches(Inventory p_44002_, Level p_44003_) { return false; }
-    @Override public ItemStack assemble(Inventory p_44001_) { return null; }
+    @Override public ItemStack assemble(Inventory p_44001_, RegistryAccess reg) { return null; }
     @Override public boolean canCraftInDimensions(int p_43999_, int p_44000_) { return false; }
-    @Override public ItemStack getResultItem() { return ItemStack.EMPTY; }
+    @Override public ItemStack getResultItem(RegistryAccess reg) { return ItemStack.EMPTY; }
 
     public static class Serializer implements RecipeSerializer<LeftoversOverrideRecipe> {
         public @NotNull LeftoversOverrideRecipe fromJson(ResourceLocation id, JsonObject json){

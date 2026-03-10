@@ -10,13 +10,15 @@
     "bottled_cloud.CloudBottlingMixin",
     "compass.CompassServiceMixin",
     "compass.StructureMixin",
+    "emi.EMIRecipeBlacklistMixin",
     "vintageimprovements.CompressorCapacityMixin",
     "vintageimprovements.PressurizingCategoryMixin",
-    "vintageimprovements.VacuumizingCategoryMixin"
+    "vintageimprovements.VacuumizingCategoryMixin",
+    "vintageimprovements.VibratingTableCapacityMixin"
   ],
   "client": [
-    "EMIVanillaMixin",
-    "bottled_cloud.JEIConversionCategoryMixin"
+    "bottled_cloud.JEIConversionCategoryMixin",
+    "emi.EMIVanillaMixin"
   ],
   "injectors": {
     "defaultRequire": 1

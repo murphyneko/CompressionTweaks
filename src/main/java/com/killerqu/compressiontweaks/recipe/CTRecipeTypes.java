@@ -2,6 +2,7 @@ package com.killerqu.compressiontweaks.recipe;
 
 import com.killerqu.compressiontweaks.CompressionTweaks;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -13,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 //Anyway, this is where the recipe types are defined.
 public class CTRecipeTypes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, CompressionTweaks.MODID);
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, CompressionTweaks.MODID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, CompressionTweaks.MODID);
 
     public static final RegistryObject<RecipeType<BoulderInfoRecipe>> BOULDER_INFO = RECIPE_TYPES.register("boulder_info",
             () -> new RecipeType<BoulderInfoRecipe>() {

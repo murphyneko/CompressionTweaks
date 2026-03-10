@@ -1,14 +1,14 @@
 package com.killerqu.compressiontweaks;
 
-import com.killerqu.compressiontweaks.biomes.BiomeRegistry;
+import com.killerqu.compressiontweaks.biomes.CTBiomes;
 import com.killerqu.compressiontweaks.biomes.CTRegion;
-import com.killerqu.compressiontweaks.biomes.SurfaceRuleData;
+import com.killerqu.compressiontweaks.biomes.CTSurfaceRuleData;
+import com.killerqu.compressiontweaks.config.CTClientConfig;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import com.killerqu.compressiontweaks.recipe.CTRecipeTypes;
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.content.kinetics.deployer.DeployerBlockEntity;
-import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipe;
-import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -16,11 +16,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -49,13 +47,18 @@ public class CompressionTweaks {
     public CompressionTweaks() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
-        BiomeRegistry.BIOME_REGISTER.register(modEventBus);
-        BiomeRegistry.registerBiomes();
+        modEventBus.addListener(this::dataSetup);
         CTRecipeTypes.RECIPE_TYPES.register(modEventBus);
         CTRecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(EventHandler.class);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CTCommonConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CTClientConfig.SPEC);
+    }
+
+    private void dataSetup(final GatherDataEvent event){
+        RegistrySetBuilder builder = new RegistrySetBuilder();
+        builder.add(Registries.BIOME, CTBiomes::bootstrap);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -63,7 +66,7 @@ public class CompressionTweaks {
         event.enqueueWork(() ->
         {
             Regions.register(new CTRegion(10));
-            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, SurfaceRuleData.makeRules());
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, CTSurfaceRuleData.makeRules());
         });
     }
 

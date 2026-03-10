@@ -2,14 +2,16 @@ package com.killerqu.compressiontweaks.mixin.bottled_cloud;
 
 import com.simibubi.create.compat.jei.ConversionRecipe;
 import com.simibubi.create.compat.jei.category.MysteriousItemConversionCategory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import vazkii.quark.content.tools.module.BottledCloudModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +25,21 @@ public class JEIConversionCategoryMixin {
     @Unique
     private static List<ConversionRecipe> originalList = new ArrayList<>();
 
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(CallbackInfo ci){
+        Item bottledCloud = ForgeRegistries.ITEMS.getValue(new ResourceLocation("quark", "bottled_cloud"));
+        if(bottledCloud == null) return;
         if(originalList.isEmpty()){
             originalList.addAll(MysteriousItemConversionCategory.RECIPES);
             MysteriousItemConversionCategory.RECIPES.add(
-                    ConversionRecipe.create(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(BottledCloudModule.bottled_cloud))
+                    ConversionRecipe.create(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(bottledCloud))
             );
         }else{ //We need to do this, otherwise it just dupes the recipes on reload.
             MysteriousItemConversionCategory.RECIPES.clear();
             MysteriousItemConversionCategory.RECIPES.addAll(originalList);
             MysteriousItemConversionCategory.RECIPES.add(
-                    ConversionRecipe.create(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(BottledCloudModule.bottled_cloud))
+                    ConversionRecipe.create(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(bottledCloud))
             );
         }
 

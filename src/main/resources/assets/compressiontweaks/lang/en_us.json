@@ -24,5 +24,6 @@
   "compressiontweaks.jei.boulders.redstone_boulder": "Redstone Boulder",
   "compressiontweaks.jei.boulders.tin_boulder": "Tin Boulder",
   "compressiontweaks.jei.boulders.uranium_boulder": "Uranium Boulder",
-  "compressiontweaks.jei.boulders.zinc_boulder": "Zinc Boulder"
+  "compressiontweaks.jei.boulders.zinc_boulder": "Zinc Boulder",
+  "compressiontweaks.emi.gem_smithing.max_level": "Can be re-applied up to %s"
 }

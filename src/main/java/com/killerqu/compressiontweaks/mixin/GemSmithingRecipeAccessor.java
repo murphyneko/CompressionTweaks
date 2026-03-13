@@ -9,6 +9,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(GemSmithingRecipe.class)
+/*Yep.
+That recipe has no getters for most of its fields.
+Here's a little tip for whoever's reading this.
+Even if you don't need it, you should add it anyway.
+Someone else might need to interface with your stuff.*/
 public interface GemSmithingRecipeAccessor {
     @Accessor(value = "enchantments", remap = false)
     NonNullList<Enchantment> getEnchants();

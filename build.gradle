@@ -194,6 +194,7 @@ dependencies {
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("curse.maven:applied-energistics-2-223794:7148487")
     implementation fg.deobf("curse.maven:mining-master-534956:5540513")
+    implementation fg.deobf("curse.maven:reliable-remover-1420447:7736801")
     //implementation fg.deobf("curse.maven:spelunkery-790530:6122072")
     compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
     runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")

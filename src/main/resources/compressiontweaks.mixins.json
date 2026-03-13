@@ -19,7 +19,7 @@
   ],
   "client": [
     "bottled_cloud.JEIConversionCategoryMixin",
-    "emi.EMIVanillaMixin"
+    "emi.EMIVanillaPluginMixin"
   ],
   "injectors": {
     "defaultRequire": 1

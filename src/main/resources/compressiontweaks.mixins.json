@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "compressiontweaks.refmap.json",
   "mixins": [
-    "GemSmithingRecipeAccessor",
     "MechCrafterMixin",
     "RecipeRemainingItemsMixin",
     "bottled_cloud.CloudBottlingMixin",

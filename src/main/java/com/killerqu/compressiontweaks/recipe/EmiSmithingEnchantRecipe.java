@@ -24,13 +24,13 @@ If passing a list of it that fully contains an item tag, those items get collaps
 However, doing so wipes any NBT they might have contained. Fine for most cases. Unless you actually needed that NBT. Which we do.
 So this is a near copy of EmiSmithingTrimRecipe, modified to take in a List<EmiStack> instead of an EmiIngredient, skipping that merging step.
  */
-public class EmiGemSmithingRecipe extends EmiSmithingTrimRecipe {
+public class EmiSmithingEnchantRecipe extends EmiSmithingTrimRecipe {
 
     private final SmithingRecipe recipe;
     private final int uniq = EmiUtil.RANDOM.nextInt();
     private final List<EmiStack> inputList;
 
-    public EmiGemSmithingRecipe(EmiIngredient template, List<EmiStack> input, EmiIngredient addition, EmiStack output, SmithingRecipe recipe) {
+    public EmiSmithingEnchantRecipe(EmiIngredient template, List<EmiStack> input, EmiIngredient addition, EmiStack output, SmithingRecipe recipe) {
         super(template, EmiIngredient.of(input), addition, output, recipe);
         this.recipe = recipe;
         this.inputList = input;

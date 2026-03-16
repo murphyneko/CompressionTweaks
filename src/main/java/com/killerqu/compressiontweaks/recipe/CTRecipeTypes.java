@@ -23,7 +23,22 @@ public class CTRecipeTypes {
                     return new ResourceLocation(CompressionTweaks.MODID, "boulder_info").toString();
                 }
             });
+
     public static final RegistryObject<RecipeSerializer<BoulderInfoRecipe>> BOULDER_SERIALIZER = RECIPE_SERIALIZERS.register("boulder_info", BoulderInfoRecipe.Serializer::new);
+
+
+
+    public static final RegistryObject<RecipeType<SmithingEnchantRecipe>> SMITHING_EHCHANT = RECIPE_TYPES.register("smithing_enchant",
+            () -> new RecipeType<SmithingEnchantRecipe>() {
+                @Override
+                public String toString() {
+                    return new ResourceLocation(CompressionTweaks.MODID, "smithing_enchant").toString();
+                }
+            });
+    public static final RegistryObject<RecipeSerializer<SmithingEnchantRecipe>> SMITHING_EHCHANT_SERIALIZER = RECIPE_SERIALIZERS.register("smithing_enchant", SmithingEnchantRecipe.Serializer::new);
+
+
+
 
     public static final RegistryObject<RecipeType<LeftoversOverrideRecipe>> LEFTOVERS_OVERRIDE = RECIPE_TYPES.register("leftovers_override",
             () -> new RecipeType<LeftoversOverrideRecipe>() {

@@ -6,6 +6,7 @@ import com.killerqu.compressiontweaks.biomes.CTSurfaceRuleData;
 import com.killerqu.compressiontweaks.config.CTClientConfig;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import com.killerqu.compressiontweaks.recipe.CTRecipeTypes;
+import com.killerqu.compressiontweaks.recipe.SmithingEnchantRecipe;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -27,7 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.infernalstudios.miningmaster.recipes.GemSmithingRecipe;
 import org.slf4j.Logger;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
@@ -73,7 +73,7 @@ public class CompressionTweaks {
     }
 
     //This is used by the EMI integration for MiningMaster's gem smithing.
-    public record GemEnchant (Enchantment ench, Item gem, GemSmithingRecipe recipe) {}
+    public record SmithingEnchant (Enchantment ench, SmithingEnchantRecipe recipe) {}
 
     public static class EventHandler {
         @SubscribeEvent

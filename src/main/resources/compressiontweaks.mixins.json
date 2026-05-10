@@ -7,6 +7,7 @@
   "mixins": [
     "MechCrafterMixin",
     "RecipeRemainingItemsMixin",
+    "ResourceLocationMixin",
     "bottled_cloud.CloudBottlingMixin",
     "compass.CompassServiceMixin",
     "compass.StructureMixin",

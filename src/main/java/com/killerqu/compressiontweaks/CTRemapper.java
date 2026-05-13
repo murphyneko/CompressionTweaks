@@ -714,26 +714,31 @@ public class CTRemapper {
 
         // === Sandstones
         // blue
+        bwgDirectRemap("blue_sand");
         bwgDirectRemap("blue_sandstone");
         bwgRemaps.put("byg:blue_chiseled_sandstone", "biomeswevegone:chiseled_blue_sandstone");
         bwgRemaps.put("byg:blue_cut_sandstone", "biomeswevegone:cut_blue_sandstone");
         bwgRemaps.put("byg:blue_smooth_sandstone", "biomeswevegone:smooth_blue_sandstone");
         // pink
+        bwgDirectRemap("pink_sand");
         bwgDirectRemap("pink_sandstone");
         bwgRemaps.put("byg:pink_chiseled_sandstone", "biomeswevegone:chiseled_pink_sandstone");
         bwgRemaps.put("byg:pink_cut_sandstone", "biomeswevegone:cut_pink_sandstone");
         bwgRemaps.put("byg:pink_smooth_sandstone", "biomeswevegone:smooth_pink_sandstone");
         // black
+        bwgDirectRemap("black_sand");
         bwgDirectRemap("black_sandstone");
         bwgRemaps.put("byg:black_chiseled_sandstone", "biomeswevegone:chiseled_black_sandstone");
         bwgRemaps.put("byg:black_cut_sandstone", "biomeswevegone:cut_black_sandstone");
         bwgRemaps.put("byg:black_smooth_sandstone", "biomeswevegone:smooth_black_sandstone");
         // purple
+        bwgDirectRemap("purple_sand");
         bwgDirectRemap("purple_sandstone");
         bwgRemaps.put("byg:purple_chiseled_sandstone", "biomeswevegone:chiseled_purple_sandstone");
         bwgRemaps.put("byg:purple_cut_sandstone", "biomeswevegone:cut_purple_sandstone");
         bwgRemaps.put("byg:purple_smooth_sandstone", "biomeswevegone:smooth_purple_sandstone");
         // white
+        bwgDirectRemap("white_sand");
         bwgDirectRemap("white_sandstone");
         bwgRemaps.put("byg:white_chiseled_sandstone", "biomeswevegone:chiseled_white_sandstone");
         bwgRemaps.put("byg:white_cut_sandstone", "biomeswevegone:cut_white_sandstone");
@@ -842,6 +847,8 @@ public class CTRemapper {
         bwgDirectRemap("yellow_tulip");
         bwgRemaps.put("byg:boric_campfire", "minecraft:campfire");
         bwgRemaps.put("byg:cryptic_campfire", "minecraft:campfire");
+        bwgDirectRemap("overgrown_stone");
+        bwgDirectRemap("shelf_fungi");
 
         REMAPS.put("byg", bwgRemaps);
 

@@ -59,6 +59,7 @@ public class SmithingEnchantRecipe implements SmithingRecipe {
         if(base.isEmpty()){
             return null;
         }
+        base.setCount(1);
         //This list will already be filtered by what CAN be applied.
         List<Enchantment> toBeApplied = filterCompatibleEnchants(base);
         if(toBeApplied.isEmpty()){

@@ -1,6 +1,5 @@
 package com.killerqu.compressiontweaks.mixin.vintageimprovements;
 
-import com.killerqu.compressiontweaks.CompressionTweaks;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import com.negodya1.vintageimprovements.content.kinetics.vibration.VibratingTableBlockEntity;
 import com.simibubi.create.foundation.item.SmartInventory;

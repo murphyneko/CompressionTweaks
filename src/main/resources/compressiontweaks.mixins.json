@@ -12,6 +12,7 @@
     "compass.CompassServiceMixin",
     "compass.StructureMixin",
     "emi.EMIRecipeBlacklistMixin",
+    "vintageimprovements.CentrifugeCapacityMixin",
     "vintageimprovements.CompressorCapacityMixin",
     "vintageimprovements.PressurizingCategoryMixin",
     "vintageimprovements.VacuumizingCategoryMixin",

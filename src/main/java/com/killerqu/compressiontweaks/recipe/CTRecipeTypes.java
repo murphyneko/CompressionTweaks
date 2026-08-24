@@ -49,4 +49,15 @@ public class CTRecipeTypes {
             });
     public static final RegistryObject<RecipeSerializer<LeftoversOverrideRecipe>> LEFTOVERS_SERIALIZER = RECIPE_SERIALIZERS.register("leftovers_override", LeftoversOverrideRecipe.Serializer::new);
 
+
+    public static final RegistryObject<RecipeType<OPAInfoRecipe>> OPA_INFO = RECIPE_TYPES.register("opa_info",
+            () -> new RecipeType<OPAInfoRecipe>() {
+                @Override
+                public String toString() {
+                    return new ResourceLocation(CompressionTweaks.MODID, "opa_info").toString();
+                }
+            });
+    public static final RegistryObject<RecipeSerializer<OPAInfoRecipe>> OPA_INFO_SERIALIZER = RECIPE_SERIALIZERS.register("opa_info", OPAInfoRecipe.Serializer::new);
+
+
 }

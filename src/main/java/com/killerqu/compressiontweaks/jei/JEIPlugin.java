@@ -3,6 +3,7 @@ package com.killerqu.compressiontweaks.jei;
 import com.killerqu.compressiontweaks.CompressionTweaks;
 import com.killerqu.compressiontweaks.recipe.BoulderInfoRecipe;
 import com.killerqu.compressiontweaks.recipe.CTRecipeTypes;
+import com.killerqu.compressiontweaks.recipe.OPAInfoRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -25,6 +26,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration){
         registration.addRecipeCategories(new BoulderInfoCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new OPAInfoCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -33,6 +35,7 @@ public class JEIPlugin implements IModPlugin {
         if(mcLevel == null) return;
         List<BoulderInfoRecipe> boulders = mcLevel.getRecipeManager().getAllRecipesFor(CTRecipeTypes.BOULDER_INFO.get());
         registration.addRecipes(BoulderInfoCategory.TYPE, boulders);
-
+        List<OPAInfoRecipe> opa = mcLevel.getRecipeManager().getAllRecipesFor(CTRecipeTypes.OPA_INFO.get());
+        registration.addRecipes(OPAInfoCategory.TYPE, opa);
     }
 }

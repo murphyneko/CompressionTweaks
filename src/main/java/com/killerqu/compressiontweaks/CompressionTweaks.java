@@ -28,9 +28,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.common.item.ItemRegistry;
 import org.slf4j.Logger;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import static com.killerqu.compressiontweaks.recipe.LeftoversOverrideRecipe.LEFTOVERS_CACHE;
 import static com.killerqu.compressiontweaks.recipe.LeftoversOverrideRecipe.LEFTOVERS_TEMP_CACHE;
@@ -70,6 +74,9 @@ public class CompressionTweaks {
             Regions.register(new CTRegion(10));
             SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, CTSurfaceRuleData.makeRules());
         });
+
+        CuriosApi.registerCurio(ItemRegistry.PARAGLIDER_NETHERITE.get(), new GliderCurioImpl());
+
     }
 
     //This is used by the EMI integration for MiningMaster's gem smithing.

@@ -2,6 +2,7 @@ package com.killerqu.compressiontweaks.mixin.emi;
 
 import com.evandev.reliable_remover.api.ReliableRemoverAPI;
 import com.killerqu.compressiontweaks.CompressionTweaks.SmithingEnchant;
+import com.killerqu.compressiontweaks.recipe.EMIAnvilCombiningRecipe;
 import com.killerqu.compressiontweaks.recipe.EmiSmithingEnchantRecipe;
 import com.killerqu.compressiontweaks.recipe.SmithingEnchantRecipe;
 import dev.emi.emi.EmiPort;
@@ -21,6 +22,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.common.item.ItemRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -65,6 +68,29 @@ public abstract class EMIVanillaPluginMixin {
             );
     }
 
+    @Inject(method = "addRepair", at = @At("TAIL"), remap = false)
+    private static void injectAnvilRecipes(EmiRegistry registry, Set<Item> hiddenItems, CallbackInfo ci){
+        Item glider = ItemRegistry.PARAGLIDER_NETHERITE.get();
+        Item paper = ItemRegistry.REINFORCED_PAPER_NETHERITE.get();
+        Item copperUpgrade = ItemRegistry.COPPER_UPGRADE.get();
+        Item netherUpgrade = ItemRegistry.NETHER_UPGRADE.get();
+        ItemStack baseGlider = glider.getDefaultInstance();
+        ItemStack brokenGlider = glider.getDefaultInstance();
+            GliderItem.setBroken(brokenGlider, true);
+        ItemStack copperUpgradeGlider = glider.getDefaultInstance();
+            GliderItem.setCopper(copperUpgradeGlider, true);
+        ItemStack netherUpgradeGlider = glider.getDefaultInstance();
+            GliderItem.setNether(netherUpgradeGlider, true);
+
+        addRecipeSafe(registry, () -> new EmiAnvilRecipe(EmiStack.of(glider), EmiStack.of(paper),
+                synthetic("anvil/repairing/material", EmiUtil.subId(glider) + "/" + EmiUtil.subId(paper))));
+        addRecipeSafe(registry, () -> new EMIAnvilCombiningRecipe(EmiStack.of(brokenGlider), EmiStack.of(paper), EmiStack.of(baseGlider),
+                synthetic("anvil/combining/", EmiUtil.subId(glider) + "/" + EmiUtil.subId(paper))));
+        addRecipeSafe(registry, () -> new EMIAnvilCombiningRecipe(EmiStack.of(baseGlider), EmiStack.of(copperUpgrade), EmiStack.of(copperUpgradeGlider),
+                synthetic("anvil/combining/", EmiUtil.subId(glider) + "/" + EmiUtil.subId(copperUpgrade))));
+        addRecipeSafe(registry, () -> new EMIAnvilCombiningRecipe(EmiStack.of(baseGlider), EmiStack.of(netherUpgrade), EmiStack.of(netherUpgradeGlider),
+                synthetic("anvil/combining/", EmiUtil.subId(glider) + "/" + EmiUtil.subId(netherUpgrade))));
+    }
 
     //This alters the hardcoded repair material for elytras to be tag based. Note that this is just for EMI.
     @Inject(method = "lambda$addRepair$42", at = @At(value = "HEAD"), remap = false, cancellable = true)

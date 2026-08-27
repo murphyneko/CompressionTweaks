@@ -16,6 +16,7 @@ public class CTCommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CENTRIFUGE_FLUID_CAPACITY;
     public static final ForgeConfigSpec.ConfigValue<Integer> TABLE_OUTPUT_SLOTS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EMI_BLACKLIST;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GLIDER_REPAIR_MANA_COST;
 
     static {
         BUILDER.push("CompressionTweaks Config");
@@ -34,6 +35,8 @@ public class CTCommonConfig {
                 .define("VI Vibrating Table Output Slots", 9);
         EMI_BLACKLIST = BUILDER.comment("A list of EMI recipe IDs to be blacklisted. Should be used for hardcoded integrations.")
                         .defineList("EMI Recipe Blacklist", List.of(), o -> o instanceof String s && ResourceLocation.isValidResourceLocation(s));
+        GLIDER_REPAIR_MANA_COST = BUILDER.comment("How much mana should a glider with the manasteel upgrade (reskinned nether upgrade) draw to repair a previously lost point of durability. Manasteel armor is 140.")
+                .define("Glider Damage Repair Cost", 140);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

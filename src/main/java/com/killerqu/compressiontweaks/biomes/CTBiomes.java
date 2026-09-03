@@ -20,6 +20,9 @@ public class CTBiomes {
     public static final ResourceKey<Biome> WARPED_BIOME = register("warped_forest");
     public static final ResourceKey<Biome> WASTES_BIOME = register("nether_wastes");
     public static final ResourceKey<Biome> VOID_BIOME = register("void_biome");
+    public static final ResourceKey<Biome> PEARLESCENT_BIOME = register("pearlescent_cliffs");
+    public static final ResourceKey<Biome> ENTROPIC_BIOME = register("entropic_delta");
+    public static final ResourceKey<Biome> BLONDE_BIOME = register("blonde_grove");
 
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registries.BIOME, new ResourceLocation(CompressionTweaks.MODID, name));
@@ -41,6 +44,9 @@ public class CTBiomes {
         ctx.register(WARPED_BIOME, NetherBiomes.warpedForest(placedFeature, carver));
         ctx.register(WASTES_BIOME, NetherBiomes.netherWastes(placedFeature, carver));
         ctx.register(VOID_BIOME, CTOverworldBiomes.voidBiome(placedFeature, carver));
+        ctx.register(PEARLESCENT_BIOME, EndBiomes.endBarrens(placedFeature, carver));
+        ctx.register(ENTROPIC_BIOME, EndBiomes.theEnd(placedFeature, carver));
+        ctx.register(BLONDE_BIOME, EndBiomes.endHighlands(placedFeature, carver));
     }
 
 }

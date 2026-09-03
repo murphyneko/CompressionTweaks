@@ -1,10 +1,14 @@
 package com.killerqu.compressiontweaks.biomes;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Objects;
 
 public class CTSurfaceRuleData {
     private static final SurfaceRules.RuleSource NETHERRACK = makeStateRule(Blocks.NETHERRACK);
@@ -30,7 +34,10 @@ public class CTSurfaceRuleData {
                 )),
                 SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.DELTAS_BIOME), BASALT),
                 SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.WASTES_BIOME), NETHERRACK),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.END_BIOME), ENDSTONE)
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.END_BIOME), ENDSTONE),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.PEARLESCENT_BIOME), ENDSTONE),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.ENTROPIC_BIOME), ENDSTONE),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.BLONDE_BIOME), ENDSTONE)
         );
     }
 

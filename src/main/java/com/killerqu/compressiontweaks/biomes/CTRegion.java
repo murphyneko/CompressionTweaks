@@ -32,6 +32,9 @@ public class CTRegion extends Region {
             builder.replaceBiome(Biomes.JUNGLE, CTBiomes.WARPED_BIOME);
             builder.replaceBiome(Biomes.BEACH, CTBiomes.VOID_BIOME);
             builder.replaceBiome(Biomes.SAVANNA, CTBiomes.WASTES_BIOME);
+            builder.replaceBiome(Biomes.BIRCH_FOREST, CTBiomes.PEARLESCENT_BIOME);
+            builder.replaceBiome(Biomes.SNOWY_TAIGA, CTBiomes.ENTROPIC_BIOME);
+            builder.replaceBiome(Biomes.FLOWER_FOREST, CTBiomes.BLONDE_BIOME);
         });
     }
 }

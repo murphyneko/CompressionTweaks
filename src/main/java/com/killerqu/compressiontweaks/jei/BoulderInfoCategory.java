@@ -3,7 +3,6 @@ package com.killerqu.compressiontweaks.jei;
 import com.killerqu.compressiontweaks.CompressionTweaks;
 import com.killerqu.compressiontweaks.recipe.BoulderInfoRecipe;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;

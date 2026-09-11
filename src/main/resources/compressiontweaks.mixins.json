@@ -17,7 +17,9 @@
     "vintageimprovements.CompressorCapacityMixin",
     "vintageimprovements.PressurizingCategoryMixin",
     "vintageimprovements.VacuumizingCategoryMixin",
-    "vintageimprovements.VibratingTableCapacityMixin"
+    "vintageimprovements.VibratingTableCapacityMixin",
+    "worldgen.HexChunkGeneratorMixin",
+    "worldgen.ModdedSlicesManagerMixin"
   ],
   "client": [
     "bottled_cloud.JEIConversionCategoryMixin",

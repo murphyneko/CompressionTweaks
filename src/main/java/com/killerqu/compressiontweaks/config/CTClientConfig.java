@@ -1,6 +1,5 @@
 package com.killerqu.compressiontweaks.config;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.List;

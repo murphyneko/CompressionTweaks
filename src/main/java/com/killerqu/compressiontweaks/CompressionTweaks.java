@@ -1,7 +1,7 @@
 package com.killerqu.compressiontweaks;
 
+import com.killerqu.compressiontweaks.biomes.CTBiomeSource;
 import com.killerqu.compressiontweaks.biomes.CTBiomes;
-import com.killerqu.compressiontweaks.biomes.CTRegion;
 import com.killerqu.compressiontweaks.biomes.CTSurfaceRuleData;
 import com.killerqu.compressiontweaks.config.CTClientConfig;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
@@ -28,11 +28,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.venturecraft.gliders.VCGliders;
-import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import org.slf4j.Logger;
-import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 import top.theillusivec4.curios.api.CuriosApi;
 
@@ -56,6 +53,7 @@ public class CompressionTweaks {
         modEventBus.addListener(this::dataSetup);
         CTRecipeTypes.RECIPE_TYPES.register(modEventBus);
         CTRecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
+        CTBiomeSource.BIOME_SOURCES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(EventHandler.class);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CTCommonConfig.SPEC);
@@ -71,7 +69,6 @@ public class CompressionTweaks {
         LOGGER.info("Setting up CompressionTweaks");
         event.enqueueWork(() ->
         {
-            Regions.register(new CTRegion(10));
             SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, CTSurfaceRuleData.makeRules());
         });
 

@@ -26,7 +26,7 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
     public static final DeferredRegister<Codec<? extends BiomeSource>> BIOME_SOURCES =
             DeferredRegister.create(Registries.BIOME_SOURCE, CompressionTweaks.MODID);
 
-    private final Climate.Parameter OCEAN_RANGE = Climate.Parameter.span(-1.05F, -0.19F);
+    private final Climate.Parameter OCEAN_RANGE = Climate.Parameter.span(-2F, -0.19F);
     //private final Climate.Parameter COAST_RANGE = Climate.Parameter.span(-0.19F, -0.11F);
 
     private long worldSeed = 0L;

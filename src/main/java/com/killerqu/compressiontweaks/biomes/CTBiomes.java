@@ -1,6 +1,7 @@
 package com.killerqu.compressiontweaks.biomes;
 
 import com.killerqu.compressiontweaks.CompressionTweaks;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -30,6 +31,8 @@ public class CTBiomes {
     public static final ResourceKey<Biome> SCULK_LANDS = register("sculk_lands");
     public static final ResourceKey<Biome> GLIMMERING_WEALD = register("glimmering_weald");
     public static final ResourceKey<Biome> MYSTICAL_GROVE = register("mystical_grove");
+    //Special
+    public static final ResourceKey<Biome> IMPACT_SITE = register("impact_site");
 
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registries.BIOME, new ResourceLocation(CompressionTweaks.MODID, name));
@@ -56,6 +59,7 @@ public class CTBiomes {
         ctx.register(SCULK_LANDS, OverworldBiomes.deepDark(placedFeature, carver));
         ctx.register(GLIMMERING_WEALD, OverworldBiomes.dripstoneCaves(placedFeature, carver));
         ctx.register(MYSTICAL_GROVE, OverworldBiomes.meadowOrCherryGrove(placedFeature, carver, false));
+        ctx.register(IMPACT_SITE, OverworldBiomes.dripstoneCaves(placedFeature, carver));
     }
 
 }

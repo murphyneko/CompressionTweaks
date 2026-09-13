@@ -17,6 +17,7 @@ public class CTCommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> TABLE_OUTPUT_SLOTS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EMI_BLACKLIST;
     public static final ForgeConfigSpec.ConfigValue<Integer> GLIDER_REPAIR_MANA_COST;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DISABLE_CHUNKGEN_SWITCH;
 
     static {
         BUILDER.push("CompressionTweaks Config");
@@ -37,6 +38,8 @@ public class CTCommonConfig {
                         .defineList("EMI Recipe Blacklist", List.of(), o -> o instanceof String s && ResourceLocation.isValidResourceLocation(s));
         GLIDER_REPAIR_MANA_COST = BUILDER.comment("How much mana should a glider with the manasteel upgrade (reskinned nether upgrade) draw to repair a previously lost point of durability. Manasteel armor is 140.")
                 .define("Glider Damage Repair Cost", 140);
+        DISABLE_CHUNKGEN_SWITCH = BUILDER.comment("Disable switching existing worlds to the new biome generation introduced in Compression 2.5.0.r. We do not recommend doing this, the cutoff is worth the new generation")
+                .define("Disable New Biome System", false);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

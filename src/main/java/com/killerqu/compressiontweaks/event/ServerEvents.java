@@ -2,6 +2,7 @@ package com.killerqu.compressiontweaks.event;
 
 import com.killerqu.compressiontweaks.CompressionTweaks;
 import com.killerqu.compressiontweaks.biomes.IOverwritableGenerator;
+import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ServerEvents {
     @SubscribeEvent
     public static void onServerStarting(ServerStartingEvent event){
+        if(CTCommonConfig.DISABLE_CHUNKGEN_SWITCH.get()) return;
         ServerLevel level = event.getServer().getLevel(ServerLevel.OVERWORLD);
         WorldPreset preset = event.getServer().registryAccess().registryOrThrow(Registries.WORLD_PRESET).get(new ResourceLocation("hexlands", "hexlands"));
         //Writing this at 1:50 am. Not to justify to anyone really. Except maybe to myself while re-reading this. ~Barza

@@ -1,6 +1,7 @@
 package com.killerqu.compressiontweaks.biomes;
 
 import com.killerqu.compressiontweaks.CompressionTweaks;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -48,6 +49,7 @@ public class CTSurfaceRuleData {
                 ),
 
                 SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.GLIMMERING_WEALD), DEEPSLATE),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.IMPACT_SITE), DEEPSLATE),
                 SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.DELTAS_BIOME), BASALT),
                 SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.WASTES_BIOME), NETHERRACK),
                 SurfaceRules.ifTrue(SurfaceRules.isBiome(CTBiomes.END_BIOME), ENDSTONE),

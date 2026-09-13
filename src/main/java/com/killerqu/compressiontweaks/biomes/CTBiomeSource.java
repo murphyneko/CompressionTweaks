@@ -3,6 +3,7 @@ package com.killerqu.compressiontweaks.biomes;
 import com.alcatrazescapee.hexlands.util.Hex;
 import com.killerqu.compressiontweaks.CompressionTweaks;
 import com.mojang.datafixers.util.Either;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -16,6 +17,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,6 +27,8 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
 
     public static final DeferredRegister<Codec<? extends BiomeSource>> BIOME_SOURCES =
             DeferredRegister.create(Registries.BIOME_SOURCE, CompressionTweaks.MODID);
+
+    private static final List<Pair<Integer, Integer>> CRATER_HEXES = List.of(Pair.of(0,0), Pair.of(0,1), Pair.of(0,-1), Pair.of(1,0), Pair.of(1,-1), Pair.of(-1,0), Pair.of(-1,1));
 
     private final Climate.Parameter OCEAN_RANGE = Climate.Parameter.span(-2F, -0.19F);
     //private final Climate.Parameter COAST_RANGE = Climate.Parameter.span(-0.19F, -0.11F);
@@ -42,6 +46,7 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
                     Codec.unboundedMap(Biome.CODEC, Codec.INT).fieldOf("land_biomes").forGetter(src -> src.landBiomes),
                     Codec.unboundedMap(Biome.CODEC, Codec.INT).fieldOf("coast_biomes").forGetter(src -> src.coastBiomes),
                     Codec.unboundedMap(Biome.CODEC, Codec.INT).fieldOf("ocean_biomes").forGetter(src -> src.oceanBiomes),
+                    Biome.CODEC.fieldOf("crater_biome").forGetter(src -> src.craterBiome),
                     MultiNoiseBiomeSourceParameterList.CODEC.fieldOf("preset").withLifecycle(Lifecycle.stable()).forGetter(src -> src.params),
                     Codec.INT.fieldOf("size").forGetter(src -> src.size)
             ).apply(instance, CTBiomeSource::new));
@@ -49,15 +54,17 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
     private final Map<Holder<Biome>, Integer> landBiomes;
     private final Map<Holder<Biome>, Integer> coastBiomes;
     private final Map<Holder<Biome>, Integer> oceanBiomes;
+    private final Holder<Biome> craterBiome;
 
     private final Holder<MultiNoiseBiomeSourceParameterList> params;
     private final int size;
 
-    public CTBiomeSource(Map<Holder<Biome>, Integer> landBiomes, Map<Holder<Biome>, Integer> coastBiomes, Map<Holder<Biome>, Integer> oceanBiomes, Holder<MultiNoiseBiomeSourceParameterList> params, int size){
+    public CTBiomeSource(Map<Holder<Biome>, Integer> landBiomes, Map<Holder<Biome>, Integer> coastBiomes, Map<Holder<Biome>, Integer> oceanBiomes, Holder<Biome> craterBiome, Holder<MultiNoiseBiomeSourceParameterList> params, int size){
         super(Either.right(params));
         this.landBiomes = landBiomes;
         this.coastBiomes = coastBiomes;
         this.oceanBiomes = oceanBiomes;
+        this.craterBiome = craterBiome;
         this.params = params;
         this.size = size;
     }
@@ -68,6 +75,8 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
         //Converting to quartpos: X >> 2
         //Converting FROM quartpos: X << 2
         Hex hex = Hex.blockToHex(qx << 2, qz << 2, size);
+        //Make the 7 hexes completely within the crater their own biome.
+        if(CRATER_HEXES.contains(Pair.of(hex.q(), hex.r()))) return craterBiome;
         BlockPos pos = hex.center();
         int x = pos.getX() >> 2;
         int y = 128 >> 2;

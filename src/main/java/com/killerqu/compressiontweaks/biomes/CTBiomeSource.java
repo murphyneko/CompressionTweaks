@@ -3,7 +3,6 @@ package com.killerqu.compressiontweaks.biomes;
 import com.alcatrazescapee.hexlands.util.Hex;
 import com.killerqu.compressiontweaks.CompressionTweaks;
 import com.mojang.datafixers.util.Either;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,7 +16,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,8 +25,6 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
 
     public static final DeferredRegister<Codec<? extends BiomeSource>> BIOME_SOURCES =
             DeferredRegister.create(Registries.BIOME_SOURCE, CompressionTweaks.MODID);
-
-    private static final List<Pair<Integer, Integer>> CRATER_HEXES = List.of(Pair.of(0,0), Pair.of(0,1), Pair.of(0,-1), Pair.of(1,0), Pair.of(1,-1), Pair.of(-1,0), Pair.of(-1,1));
 
     private final Climate.Parameter OCEAN_RANGE = Climate.Parameter.span(-2F, -0.19F);
     //private final Climate.Parameter COAST_RANGE = Climate.Parameter.span(-0.19F, -0.11F);
@@ -47,6 +43,7 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
                     Codec.unboundedMap(Biome.CODEC, Codec.INT).fieldOf("coast_biomes").forGetter(src -> src.coastBiomes),
                     Codec.unboundedMap(Biome.CODEC, Codec.INT).fieldOf("ocean_biomes").forGetter(src -> src.oceanBiomes),
                     Biome.CODEC.fieldOf("crater_biome").forGetter(src -> src.craterBiome),
+                    Codec.INT.fieldOf("crater_size").forGetter(src -> src.craterSize),
                     MultiNoiseBiomeSourceParameterList.CODEC.fieldOf("preset").withLifecycle(Lifecycle.stable()).forGetter(src -> src.params),
                     Codec.INT.fieldOf("size").forGetter(src -> src.size)
             ).apply(instance, CTBiomeSource::new));
@@ -58,25 +55,34 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
 
     private final Holder<MultiNoiseBiomeSourceParameterList> params;
     private final int size;
+    private final int craterSize;
 
-    public CTBiomeSource(Map<Holder<Biome>, Integer> landBiomes, Map<Holder<Biome>, Integer> coastBiomes, Map<Holder<Biome>, Integer> oceanBiomes, Holder<Biome> craterBiome, Holder<MultiNoiseBiomeSourceParameterList> params, int size){
+    public CTBiomeSource(Map<Holder<Biome>, Integer> landBiomes, Map<Holder<Biome>, Integer> coastBiomes, Map<Holder<Biome>, Integer> oceanBiomes, Holder<Biome> craterBiome, int craterSize, Holder<MultiNoiseBiomeSourceParameterList> params, int size){
         super(Either.right(params));
         this.landBiomes = landBiomes;
         this.coastBiomes = coastBiomes;
         this.oceanBiomes = oceanBiomes;
         this.craterBiome = craterBiome;
+        this.craterSize = (craterSize >> 2) * (craterSize >> 2); //The logic uses QuartPos and a squared distance check, so this gets pre-converted
         this.params = params;
         this.size = size;
     }
 
     @Override
     public Holder<Biome> getNoiseBiome(int qx, int qy, int qz, Climate.Sampler sampler){
+        //qx and qz are in quartpos, so to do 128, it's actually 32.
+        int absX = Math.abs(qx);
+        int absZ = Math.abs(qz);
+        if(absX <= 32 && absZ <= 32){ //No point calculating distance if either of them is for sure out of the crater's bounds
+            int quartDistance = (absX * absX) + (absZ * absZ); //Noted: ^ is not exponent. ^ is bitwise XOR.
+            if(quartDistance <= craterSize){ //leave some leeway at the borders of the crater to ensure it doesn't poke into non-crater areas. Checking for 900
+                return craterBiome;
+            }
+        }
 
         //Converting to quartpos: X >> 2
         //Converting FROM quartpos: X << 2
         Hex hex = Hex.blockToHex(qx << 2, qz << 2, size);
-        //Make the 7 hexes completely within the crater their own biome.
-        if(CRATER_HEXES.contains(Pair.of(hex.q(), hex.r()))) return craterBiome;
         BlockPos pos = hex.center();
         int x = pos.getX() >> 2;
         int y = 128 >> 2;

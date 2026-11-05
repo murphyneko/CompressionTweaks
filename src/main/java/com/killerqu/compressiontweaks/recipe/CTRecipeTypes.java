@@ -59,5 +59,35 @@ public class CTRecipeTypes {
             });
     public static final RegistryObject<RecipeSerializer<OPAInfoRecipe>> OPA_INFO_SERIALIZER = RECIPE_SERIALIZERS.register("opa_info", OPAInfoRecipe.Serializer::new);
 
+/*
+    public static final RegistryObject<RecipeType<MicroblockStonecutterRecipe>> MICROBLOCK_STONECUTTING = RECIPE_TYPES.register("microblock_stonecutting",
+            () -> new RecipeType<MicroblockStonecutterRecipe>() {
+                @Override
+                public String toString() {
+                    return new ResourceLocation(CompressionTweaks.MODID, "microblock_stonecutting").toString();
+                }
+            });
+    public static final RegistryObject<RecipeSerializer<MicroblockStonecutterRecipe>> MICROBLOCK_STIONECUTTING_SERIALIZER = RECIPE_SERIALIZERS.register("microblock_stonecutting", MicroblockStonecutterRecipe.Serializer::new);
+*/
+
+    public static final RegistryObject<RecipeType<MicroblockShapedRecipe>> SHAPED_MICROBLOCK = RECIPE_TYPES.register("shaped_microblock",
+            () -> new RecipeType<MicroblockShapedRecipe>() {
+                @Override
+                public String toString() {
+                    return new ResourceLocation(CompressionTweaks.MODID, "shaped_microblock").toString();
+                }
+            });
+    public static final RegistryObject<RecipeSerializer<MicroblockShapedRecipe>> SHAPED_MICROBLOCK_SERIALIZER = RECIPE_SERIALIZERS.register("shaped_microblock", MicroblockShapedRecipe.Serializer::new);
+
+
+    public static final RegistryObject<RecipeType<MicroblockShapelessRecipe>> SHAPELESS_MICROBLOCK = RECIPE_TYPES.register("shapeless_microblock",
+            () -> new RecipeType<MicroblockShapelessRecipe>() {
+                @Override
+                public String toString() {
+                    return new ResourceLocation(CompressionTweaks.MODID, "shapeless_microblock").toString();
+                }
+            });
+    public static final RegistryObject<RecipeSerializer<MicroblockShapelessRecipe>> SHAPELESS_MICROBLOCK_SERIALIZER = RECIPE_SERIALIZERS.register("shapeless_microblock", MicroblockShapelessRecipe.Serializer::new);
+
 
 }

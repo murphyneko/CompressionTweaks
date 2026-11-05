@@ -19,8 +19,8 @@
     "vintageimprovements.VacuumizingCategoryMixin",
     "vintageimprovements.VibratingTableCapacityMixin",
     "worldgen.HexChunkGeneratorMixin",
-    "worldgen.ModdedSlicesManagerMixin",
-    "worldgen.ChunkMapMixin"
+    "worldgen.MinecraftServerMixin",
+    "worldgen.ModdedSlicesManagerMixin"
   ],
   "client": [
     "bottled_cloud.JEIConversionCategoryMixin",

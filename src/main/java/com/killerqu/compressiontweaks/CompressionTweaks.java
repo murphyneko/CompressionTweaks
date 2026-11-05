@@ -7,6 +7,7 @@ import com.killerqu.compressiontweaks.biomes.CTSurfaceRuleData;
 import com.killerqu.compressiontweaks.config.CTClientConfig;
 import com.killerqu.compressiontweaks.config.CTCommonConfig;
 import com.killerqu.compressiontweaks.recipe.CTRecipeTypes;
+import com.killerqu.compressiontweaks.recipe.MicroblockIngredient;
 import com.killerqu.compressiontweaks.recipe.SmithingEnchantRecipe;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.RegistrySetBuilder;
@@ -19,7 +20,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,6 +32,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import org.slf4j.Logger;
 import terrablender.api.Regions;
@@ -53,6 +58,7 @@ public class CompressionTweaks {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::dataSetup);
+        modEventBus.addListener(this::registerIngredient);
         CTRecipeTypes.RECIPE_TYPES.register(modEventBus);
         CTRecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
         CTBiomeSource.BIOME_SOURCES.register(modEventBus);
@@ -79,6 +85,12 @@ public class CompressionTweaks {
 
     }
 
+    private void registerIngredient(RegisterEvent e){
+        e.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS,
+                helper -> CraftingHelper.register(MicroblockIngredient.ID, MicroblockIngredient.MICROBLOCK_SERIALIZER)
+                );
+    }
+
     //This is used by the EMI integration for MiningMaster's gem smithing.
     public record SmithingEnchant (Enchantment ench, SmithingEnchantRecipe recipe) {}
 
@@ -92,6 +104,12 @@ public class CompressionTweaks {
             LEFTOVERS_CACHE.putAll(LEFTOVERS_TEMP_CACHE);
             LEFTOVERS_TEMP_CACHE.clear();
         }
+    }
+
+    //This is the material used for microblocks in emi
+    public static Block mbDefault(){
+        //return ForgeRegistries.BLOCKS.getValue(new ResourceLocation("nyagibits_bytes", "flake"));
+        return Blocks.GRASS_BLOCK;
     }
 
 }

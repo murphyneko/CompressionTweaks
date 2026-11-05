@@ -1,6 +1,8 @@
 package com.killerqu.compressiontweaks.mixin.emi;
 
 import com.killerqu.compressiontweaks.config.CTClientConfig;
+import com.killerqu.compressiontweaks.recipe.MicroblockShapedRecipe;
+import com.killerqu.compressiontweaks.recipe.MicroblockShapelessRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.registry.EmiRegistryImpl;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,6 +15,7 @@ public class EMIRecipeBlacklistMixin {
 
     @Inject(remap = false, method = "addRecipe", at = @At("HEAD"), cancellable = true)
     private void unAddRecipe(EmiRecipe recipe, CallbackInfo ci){
+        if(recipe.getBackingRecipe() instanceof MicroblockShapelessRecipe || recipe.getBackingRecipe() instanceof MicroblockShapedRecipe) ci.cancel();
         if(recipe != null && recipe.getId() != null){
             if(CTClientConfig.EMI_BLACKLIST.get().contains(recipe.getId().toString())){
                 ci.cancel();

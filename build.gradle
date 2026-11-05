@@ -216,6 +216,7 @@ dependencies {
     //Could have just meddled with the biome source but NOPE! IT gets encapsulated by ModdedBiomeSource!
     //So now it gets dragged in here, to pass stuff through. And to add an accessor for the original source because ofc there ain't one.
     implementation("com.teamabnormals:blueprint:1.20.1-7.1.3")
+    implementation fg.deobf("curse.maven:cb-multipart-258426:7845318")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

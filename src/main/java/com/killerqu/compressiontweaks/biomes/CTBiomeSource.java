@@ -63,7 +63,7 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
         this.coastBiomes = coastBiomes;
         this.oceanBiomes = oceanBiomes;
         this.craterBiome = craterBiome;
-        this.craterSize = (craterSize >> 2) * (craterSize >> 2); //The logic uses QuartPos and a squared distance check, so this gets pre-converted
+        this.craterSize = craterSize;
         this.params = params;
         this.size = size;
     }
@@ -75,7 +75,7 @@ public class CTBiomeSource extends MultiNoiseBiomeSource implements ISeededBiome
         int absZ = Math.abs(qz);
         if(absX <= 32 && absZ <= 32){ //No point calculating distance if either of them is for sure out of the crater's bounds
             int quartDistance = (absX * absX) + (absZ * absZ); //Noted: ^ is not exponent. ^ is bitwise XOR.
-            if(quartDistance <= craterSize){ //leave some leeway at the borders of the crater to ensure it doesn't poke into non-crater areas. Checking for 900
+            if(quartDistance <= (craterSize >> 2) * (craterSize >> 2)){ //leave some leeway at the borders of the crater to ensure it doesn't poke into non-crater areas. Checking for 900
                 return craterBiome;
             }
         }

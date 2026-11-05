@@ -20,5 +20,6 @@
   "compressiontweaks.jei.opacategory.opa_froth_tooltip": "This fluid is created in the block above the OPA 1214 fluid.",
   "compressiontweaks.jei.opacategory.contaminated_opa_tooltip": "This fluid replaces the placed down OPA 1214",
   "compressiontweaks.jei.opacategory.info.primaries": "These resources are obtained from this process and are considered the most important outputs.",
-  "compressiontweaks.jei.opacategory.info.secondaries": "These resources are also obtained from this process, but are either less important, or can be obtained in other ways more easily."
+  "compressiontweaks.jei.opacategory.info.secondaries": "These resources are also obtained from this process, but are either less important, or can be obtained in other ways more easily.",
+  "emi.category.compressiontweaks.microblock_crafting": "Microblock Crafting"
 }

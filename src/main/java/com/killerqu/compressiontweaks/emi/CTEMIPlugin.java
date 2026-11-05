@@ -12,10 +12,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -28,7 +25,7 @@ import static codechicken.microblock.init.CBMicroblockModContent.DIAMOND_SAW;
 @EmiEntrypoint
 public class CTEMIPlugin implements EmiPlugin {
     public static final EmiStack MB_ICON = EmiStack.of(DIAMOND_SAW.get());
-    public static final EmiRecipeCategory MB_CATEGORY = new EmiRecipeCategory(new ResourceLocation(CompressionTweaks.MODID, "microblock_crafting"), MB_ICON);
+    public static final EmiRecipeCategory MB_CATEGORY = new EmiRecipeCategory(new ResourceLocation("compressiontweaks", "microblock_crafting"), MB_ICON);
 
     public static final AtomicInteger COUNTER = new AtomicInteger(0);
 

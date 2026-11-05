@@ -13,6 +13,8 @@
     "compass.CompassServiceMixin",
     "compass.StructureMixin",
     "emi.EMIRecipeBlacklistMixin",
+    "emi.JEMIPluginMixin",
+    "emi.JEMIUtilMixin",
     "vintageimprovements.CentrifugeCapacityMixin",
     "vintageimprovements.CompressorCapacityMixin",
     "vintageimprovements.PressurizingCategoryMixin",

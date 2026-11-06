@@ -11,13 +11,10 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static codechicken.microblock.init.CBMicroblockModContent.DIAMOND_SAW;
@@ -38,21 +35,37 @@ public class CTEMIPlugin implements EmiPlugin {
 
         RecipeManager manager = registry.getRecipeManager();
         for(CraftingRecipe recipe : manager.getAllRecipesFor(RecipeType.CRAFTING)){
-            if(recipe instanceof MicroblockShapedRecipe) registerMicroblockRecipe(registry, recipe, false);
+            if(recipe instanceof MicroblockShapedRecipe shapedRecipe) registerMicroblockShapedRecipe(registry, shapedRecipe);
             if(recipe instanceof MicroblockShapelessRecipe) registerMicroblockRecipe(registry, recipe, true);
         }
         CompressionTweaks.LOGGER.info("EMI: Registered {} Microblock Recipes!", COUNTER.get());
 
     }
 
+    public void registerMicroblockShapedRecipe(EmiRegistry registry, MicroblockShapedRecipe recipe){
+        COUNTER.incrementAndGet();
+        CompressionTweaks.LOGGER.info("Registering: {}", recipe.getId());
+        NonNullList<Ingredient> ingredients = NonNullList.withSize(recipe.getIngredients().size(), Ingredient.EMPTY);
+        for(int i = 0; i<recipe.getIngredients().size();i++){
+            if(recipe.getIngredients().get(i) instanceof MicroblockIngredient microblockIngredient) ingredients.set(i, Ingredient.of(microblockIngredient.getDisplayItem()));
+            else ingredients.set(i, recipe.getIngredients().get(i));
+        }
+        registry.addRecipe(new EmiMicroblockShapedRecipe(
+                new ShapedRecipe(
+                        new ResourceLocation(EmiPort.getId(recipe).getNamespace(), "emi_"+EmiPort.getId(recipe).getPath()),
+                        recipe.getGroup(), recipe.category(), recipe.getWidth(), recipe.getHeight(), ingredients, EmiPort.getOutput(recipe), false)
+        ));
+    }
+
+
     public void registerMicroblockRecipe(EmiRegistry registry, CraftingRecipe recipe, boolean shapeless){
         COUNTER.incrementAndGet();
         CompressionTweaks.LOGGER.info("Registering: {}", recipe.getId());
-        List<EmiIngredient> ingredients = new ArrayList<>();
-        recipe.getIngredients().forEach(ingredient -> {
-            if(ingredient instanceof MicroblockIngredient microblockIngredient) ingredients.add(EmiStack.of(microblockIngredient.getDisplayItem()));
-            else ingredients.add(EmiIngredient.of(ingredient));
-        });
+        NonNullList<EmiIngredient> ingredients = NonNullList.withSize(recipe.getIngredients().size(), EmiStack.EMPTY);
+        for(int i = 0; i<recipe.getIngredients().size();i++){
+            if(recipe.getIngredients().get(i) instanceof MicroblockIngredient microblockIngredient) ingredients.set(i, EmiStack.of(microblockIngredient.getDisplayItem()));
+            else ingredients.set(i, EmiIngredient.of(recipe.getIngredients().get(i)));
+        }
         registry.addRecipe(new EmiMicroblockCraftingRecipe(ingredients, EmiStack.of(EmiPort.getOutput(recipe)),
                 new ResourceLocation(EmiPort.getId(recipe).getNamespace(), "emi_"+EmiPort.getId(recipe).getPath())
                 ,shapeless));

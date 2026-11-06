@@ -12,6 +12,6 @@ public class EmiMicroblockShapedRecipe extends EmiShapedRecipe {
 
     @Override
     public EmiRecipeCategory getCategory(){
-        return CTEMIPlugin.MB_CATEGORY;
+        return CTEMIPlugin.MB_CRAFTING_CATEGORY;
     }
 }
